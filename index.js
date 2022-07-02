@@ -5,8 +5,9 @@ import path from 'path'
 import mongoose from 'mongoose'
 
 import anggotaRoutes from './routes/AnggotaRoutes.js'
-import pendaftaranRoutes from './routes/pendaftaranRoutes.js'
-import pembayaranRoutes from './routes/pembayaranRoutes.js'
+import pendaftaranRoutes from './routes/PendaftaranRoutes.js'
+import pembayaranRoutes from './routes/PembayaranRoutes.js'
+import waktuRoutes from './routes/WaktuRoutes.js'
 import { fileURLToPath } from 'url'
 
 const app = express()
@@ -27,6 +28,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use('/anggota', anggotaRoutes)
 app.use('/pendaftaran', pendaftaranRoutes)
 app.use('/pembayaran', pembayaranRoutes)
+app.use('/waktu', waktuRoutes)
 
 const PORT = process.env.PORT || 5000
 

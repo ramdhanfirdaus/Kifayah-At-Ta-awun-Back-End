@@ -46,9 +46,9 @@ export const createPembayaran = async (req, res) => {
                     status: 'TIDAK BAYAR'
                 }).save()
             });
-            res.status(201).json({ msg: "Pendaftaran Created" })
+            res.status(201).json({ msg: "Pembayaran Created" })
         } else {
-            res.status(201).json({ msg: "Pendaftaran Not Created" })
+            res.status(201).json({ msg: "Pembayaran Not Created" })
         }
 
     } catch (e) {
@@ -58,7 +58,7 @@ export const createPembayaran = async (req, res) => {
 
 export const updatePembayaran = async (req, res) => {
     try {
-        req.body.allNik.forEach(async (nik) => {
+        req.body.nikBayar.forEach(async (nik) => {
             const anggota = await Anggota.findOne({nik: nik})
             anggota.lama_nunggak = anggota.lama_nunggak - 1
             if (anggota.lama_nunggak === 3) {
@@ -74,7 +74,24 @@ export const updatePembayaran = async (req, res) => {
             }, {status: 'BAYAR'}
             )
         })
-        res.status(201).json({ msg: "Pendaftaran Updated" })
+
+        req.body.nikBayar.forEach(async (nik) => {
+            const anggota = await Anggota.findOne({nik: nik})
+            anggota.lama_nunggak = anggota.lama_nunggak + 1
+            if (anggota.lama_nunggak === 4) {
+                anggota.status = 'TIDAK AKTIF'
+            }
+            anggota.save()
+
+            await Pembayaran.updateOne(
+                {
+                nik: nik,
+                bulan: req.body.bulan,
+                tahun: req.body.tahun,
+            }, {status: 'TIDAK BAYAR'}
+            )
+        })
+        res.status(201).json({ msg: "Pembayaran Updated" })
     } catch (e) {
         console.log(e.message)
     }
