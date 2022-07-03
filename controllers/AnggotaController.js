@@ -31,8 +31,8 @@ export const createAnggota = async(req, res) => {
             filesArray.push(file);
         });
         await new Anggota({
-            nomor_anggota: req.body.nomor_anggota,
             nik: req.body.nik,
+            nomor_anggota: req.body.nomor_anggota,
             nama: req.body.nama,
             jenis_kelamin: req.body.jenis_kelamin,
             golongan_darah: req.body.golongan_darah,

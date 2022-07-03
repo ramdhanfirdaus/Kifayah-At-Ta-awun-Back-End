@@ -1,14 +1,15 @@
 import mongoose from 'mongoose'
 
 const Anggota = mongoose.model('anggota', {
+    nik: {
+        type: Number,
+        required: true,
+        unique: true
+    },
     nomor_anggota: {
         type: Number,
         required: true,
-    },
-    nik: {
-        type: String,
-        required: true,
-        unique: true
+        unique: false
     },
     nama: {
         type: String,
